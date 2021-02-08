@@ -43,7 +43,7 @@ However if you want to have Step 2 to work on a `react-native-web` project, you 
   // webpack.config.js
 
   const webpack = require('webpack');
-+ const ReactWebConfig = require('react-web-config/lib/ReactWebConfig').ReactWebConfig;
++ const ReactWebConfig = require('react-web-config/lib/ReactWebConfig');
 + const path = require('path');
 
 + const envFilePath = path.resolve(__dirname, '.env');
@@ -53,7 +53,10 @@ However if you want to have Step 2 to work on a `react-native-web` project, you 
     plugins: [
       ...
 +     /* define __REACT_WEB_CONFIG__ */
-+     ReactWebConfig(envFilePath)
++     ReactWebConfig(envFilePath),
++     new webpack.DefinePlugin({
++       '__REACT_WEB_CONFIG__': ReactWebConfig.ReactWebConfig(envFilePath)
++     })
     ],
     resolve: [
       alias: [
